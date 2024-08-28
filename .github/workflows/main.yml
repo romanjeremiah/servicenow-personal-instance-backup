@@ -1,1 +1,24 @@
+name: ServiceNow Backup
+
+on:
+  workflow_dispatch:  # Allows manual triggering from the GitHub UI
+  schedule:
+    - cron: '0 2 * * *'  # Runs daily at 2:00 AM UTC
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest  # The environment to run the job
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2  # Checks out your repository
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "ServiceNow Auto Commit"
+        git config --global user.email "you@example.com"
+        git add .
+        git commit -m "Automated backup from ServiceNow"
+        git push origin main
+
 
